@@ -89,8 +89,9 @@ export type SuperusersRecord = {
 }
 
 export enum EventsStatusOptions {
+	"draft" = "draft",
 	"active" = "active",
-	"archived" = "archived",
+	"archive" = "archive",
 }
 
 export enum EventsTargetAudienceOptions {
@@ -101,7 +102,7 @@ export type EventsRecord = {
 	created?: IsoDateString
 	description?: HTMLString
 	earlyAccess?: boolean
-	endDate?: IsoDateString
+	endDate: IsoDateString
 	externalUrl?: string
 	id: string
 	image?: string[]
@@ -109,12 +110,12 @@ export type EventsRecord = {
 	questions?: RecordIdString[]
 	responseLimit?: number
 	serialCumulative?: number
-	serialPrefix?: number
-	startDate?: IsoDateString
-	status?: EventsStatusOptions
-	targetAudience?: EventsTargetAudienceOptions[]
+	serialPrefix: string
+	startDate: IsoDateString
+	status: EventsStatusOptions
+	targetAudience: EventsTargetAudienceOptions[]
 	terms?: RecordIdString[]
-	title?: string
+	title: string
 	updated?: IsoDateString
 	userResponseLimit?: number
 }

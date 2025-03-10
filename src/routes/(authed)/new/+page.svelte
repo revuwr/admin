@@ -47,7 +47,7 @@
 	});
 </script>
 
-<div class="w-full max-w-2xl self-center pb-20">
+<div class="w-full max-w-2xl self-center px-2 pb-20">
 	<span class="mb-6 block text-2xl font-semibold">Create a new event</span>
 
 	<form method="POST" use:enhance class="space-y-6">
@@ -79,19 +79,21 @@
 			<Form.FieldErrors />
 		</Form.Field>
 
-		<Form.Field {form} name="targetAudience">
-			<Form.Control>
-				{#snippet children({ props })}
-					<Form.Label>Target Audience*</Form.Label>
-					<div class="flex flex-col gap-2">
-						{#each targetAudienceOptions as option}
-							<div class="flex items-center gap-2">
+		<Form.Fieldset {form} name="targetAudience">
+			<Form.Legend>Target Audience*</Form.Legend>
+			<div class="flex flex-col gap-2">
+				{#each targetAudienceOptions as option}
+					{@const checked = $formData.targetAudience?.includes(option) || false}
+					<div class="flex items-center gap-2">
+						<Form.Control>
+							{#snippet children({ props })}
 								<Checkbox
-									id={option}
-									checked={$formData.targetAudience?.includes(option)}
-									onCheckedChange={(checked) => {
+									{...props}
+									{checked}
+									value={option}
+									onCheckedChange={(v) => {
 										if (!$formData.targetAudience) $formData.targetAudience = [];
-										if (checked) {
+										if (v) {
 											if (!$formData.targetAudience.includes(option)) {
 												$formData.targetAudience = [...$formData.targetAudience, option];
 											}
@@ -102,16 +104,16 @@
 										}
 									}}
 								/>
-								<label for={option} class="text-sm font-medium">
+								<Form.Label class="font-normal">
 									{option.charAt(0).toUpperCase() + option.slice(1)}
-								</label>
-							</div>
-						{/each}
+								</Form.Label>
+							{/snippet}
+						</Form.Control>
 					</div>
-				{/snippet}
-			</Form.Control>
+				{/each}
+			</div>
 			<Form.FieldErrors />
-		</Form.Field>
+		</Form.Fieldset>
 
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 			<Form.Field {form} name="startDate">
@@ -206,23 +208,23 @@
 		</Form.Field>
 
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-			<Form.Field {form} name="earlyAccess">
+			<Form.Field {form} name="earlyAccess" class="flex flex-row items-start space-x-3 space-y-0">
 				<Form.Control>
 					{#snippet children({ props })}
-						<div class="flex items-center gap-2">
-							<Checkbox id="earlyAccess" bind:checked={$formData.earlyAccess} />
-							<Form.Label for="earlyAccess">Allow Early Access</Form.Label>
+						<Checkbox {...props} bind:checked={$formData.earlyAccess} />
+						<div class="space-y-1 leading-none">
+							<Form.Label>Allow Early Access</Form.Label>
 						</div>
 					{/snippet}
 				</Form.Control>
 			</Form.Field>
 
-			<Form.Field {form} name="lateAccess">
+			<Form.Field {form} name="lateAccess" class="flex flex-row items-start space-x-3 space-y-0">
 				<Form.Control>
 					{#snippet children({ props })}
-						<div class="flex items-center gap-2">
-							<Checkbox id="lateAccess" bind:checked={$formData.lateAccess} />
-							<Form.Label for="lateAccess">Allow Late Access</Form.Label>
+						<Checkbox {...props} bind:checked={$formData.lateAccess} />
+						<div class="space-y-1 leading-none">
+							<Form.Label>Allow Late Access</Form.Label>
 						</div>
 					{/snippet}
 				</Form.Control>
