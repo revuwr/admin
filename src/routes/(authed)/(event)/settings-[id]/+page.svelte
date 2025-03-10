@@ -33,6 +33,9 @@
 			} else {
 				toast.error('Failed to save settings');
 			}
+		},
+		onUpdate: async ({ cancel }) => {
+			cancel();
 		}
 	});
 

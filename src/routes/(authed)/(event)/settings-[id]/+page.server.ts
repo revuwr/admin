@@ -4,29 +4,28 @@ import { message, setError, superValidate } from 'sveltekit-superforms';
 import { formSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
 
-export const load: PageServerLoad = async ({ params, parent }) => {
-	const id = params.id;
-	const { event: eventRecord } = await parent();
+export const load: PageServerLoad = async ({ parent }) => {
+	const { event } = await parent();
 
-	if (!eventRecord) {
+	if (!event) {
 		throw error(404, 'Event not found');
 	}
 
-	try {
-		const formData = {
-			title: eventRecord.title,
-			description: eventRecord.description,
-			targetAudience: eventRecord.targetAudience,
-			startDate: eventRecord.startDate,
-			endDate: eventRecord.endDate,
-			externalUrl: eventRecord.externalUrl,
-			earlyAccess: eventRecord.earlyAccess,
-			lateAccess: eventRecord.lateAccess,
-			responseLimit: eventRecord.responseLimit,
-			userResponseLimit: eventRecord.userResponseLimit,
-			serialPrefix: eventRecord.serialPrefix
-		};
+	const formData = {
+		title: event.title,
+		description: event.description,
+		targetAudience: event.targetAudience,
+		startDate: event.startDate,
+		endDate: event.endDate,
+		externalUrl: event.externalUrl,
+		earlyAccess: event.earlyAccess,
+		lateAccess: event.lateAccess,
+		responseLimit: event.responseLimit,
+		userResponseLimit: event.userResponseLimit,
+		serialPrefix: event.serialPrefix
+	};
 
+	try {
 		const form = await superValidate(formData, zod(formSchema));
 		return { form };
 	} catch (err) {
@@ -43,7 +42,7 @@ export const actions: Actions = {
 		}
 
 		try {
-			await locals.pb.collection('events').update(params.id, form.data);
+			const event = await locals.pb.collection('events').update(params.id, form.data);
 			return message(form, '');
 		} catch (err) {
 			return setError(form, '', 'Updating event settings failed');
