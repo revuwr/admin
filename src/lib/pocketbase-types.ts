@@ -134,16 +134,19 @@ export enum QuestionsTypeOptions {
 	"budget" = "budget",
 }
 export type QuestionsRecord<Trules = unknown> = {
+	conditional?: boolean
+	conditionquestion?: RecordIdString
+	conditionvalue?: string
 	constrain?: boolean
 	created?: IsoDateString
 	description?: HTMLString
 	id: string
-	max?: number
+	max: number
 	min?: number
 	required?: boolean
 	rules?: null | Trules
-	title?: HTMLString
-	type?: QuestionsTypeOptions
+	title: HTMLString
+	type: QuestionsTypeOptions
 	updated?: IsoDateString
 }
 

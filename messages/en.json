@@ -1,4 +1,13 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from en!"
+	"hello_world": "Hello, {name} from en!",
+	"draft": "Draft",
+	"approved": "Approved",
+	"submitted": "Submitted",
+	"resubmitted": "Resubmitted",
+	"edits_requested": "Edits Requested",
+	"follow_up_requested": "Follow-up Requested",
+	"rejected": "Rejected",
+	"withdrawn": "Withdrawn",
+	"unknown": "Unknown"
 }

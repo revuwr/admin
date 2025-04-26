@@ -7,10 +7,10 @@
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import type { EventsResponse } from '$lib/pocketbase-types';
 	import {
+		ChartBarIcon,
 		FileText,
 		FolderIcon,
 		FoldersIcon,
-		MessageSquare,
 		MessageSquareDiff,
 		Settings2,
 		UsersIcon
@@ -41,7 +41,7 @@
 		{
 			title: 'Responses',
 			url: `${PUBLIC_BASE_URL}/responses-${event?.id}`,
-			icon: MessageSquare
+			icon: ChartBarIcon
 		},
 		{
 			title: 'Reviews',
